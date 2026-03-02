@@ -1,5 +1,5 @@
 import { db } from '..'
-import { eq, desc } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { users } from '../schema';
 import { firstOrUndefined } from './utils';
 
@@ -10,6 +10,11 @@ export async function createUser(name: string) {
 
 export async function getUserByName(name: string) {
   const result = await db.select().from(users).where(eq(users.name, name));
+  return firstOrUndefined(result);
+}
+
+export async function getUserById(id: string) {
+  const result = await db.select().from(users).where(eq(users.id, id));
   return firstOrUndefined(result);
 }
 
