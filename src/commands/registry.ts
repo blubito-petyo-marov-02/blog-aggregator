@@ -16,4 +16,4 @@ export async function runCommand(registry: CommandRegistry, cmdName: string, ...
   await handler(cmdName, ...args);
 }
 
-export type UserCommandHandler = (cmdName: string, user: User, args: string[]) => Promise<void> | void;
+export type UserCommandHandler = (cmdName: string, user: User, ...args: string[]) => Promise<void> | void;

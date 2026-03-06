@@ -31,7 +31,7 @@ export async function handlerRegister(cmdName: string, ...args: string[]) {
   console.log(`User ${username} registered successfully`);
 }
 
-export async function handlerListAllUsers() {
+export async function handlerListAllUsers(_: string) {
   const users = await getAllUsers();
   const config = readConfig();
 

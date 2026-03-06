@@ -5,7 +5,7 @@ import { getUserByName } from './lib/db/queries/user';
 
 
 export function middlewareLoggedIn(handler: UserCommandHandler): CommandHandler {
-  return async (cmdName: string, ...args: string[]) => {
+  return async (cmdName: string, ...args: string[]): Promise<void> => {
     const { currentUserName } = readConfig();
     const user = await getUserByName(currentUserName);
 
@@ -13,6 +13,6 @@ export function middlewareLoggedIn(handler: UserCommandHandler): CommandHandler 
       throw new Error(`User ${currentUserName} not found`);
     }
 
-    return handler(cmdName, user, args);
+    return handler(cmdName, user, ...args);
   };
 }

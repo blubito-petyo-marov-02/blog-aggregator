@@ -4,7 +4,7 @@ import { getUserById } from 'src/lib/db/queries/user';
 import { Feed, User } from 'src/lib/db/schema';
 import { printFeedFollow } from './feed-follows';
 
-export async function handlerAddFeed(cmdName: string, user: User, args: string[]) {
+export async function handlerAddFeed(cmdName: string, user: User, ...args: string[]) {
   if (args.length !== 2) {
     throw new Error(`Usage: ${cmdName} <feed_name> <url>`);
   }
@@ -24,7 +24,7 @@ export async function handlerAddFeed(cmdName: string, user: User, args: string[]
   printFeed(feed, user);
 }
 
-export async function handlerListFeeds() {
+export async function handlerListFeeds(_: string) {
   const feeds = await getAllFeeds();
 
   if (feeds.length === 0) {
