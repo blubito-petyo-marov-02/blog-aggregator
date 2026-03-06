@@ -1,20 +1,12 @@
-import { readConfig } from "src/config";
-import { createFeedFollow } from "src/lib/db/queries/feed-follows";
-import { createFeed, getAllFeeds } from "src/lib/db/queries/feeds";
-import { getUserById, getUserByName } from "src/lib/db/queries/user";
-import { Feed, feeds, User, users } from "src/lib/db/schema";
-import { printFeedFollow } from "./feed-follows";
+import { createFeedFollow } from 'src/lib/db/queries/feed-follows';
+import { createFeed, getAllFeeds } from 'src/lib/db/queries/feeds';
+import { getUserById } from 'src/lib/db/queries/user';
+import { Feed, User } from 'src/lib/db/schema';
+import { printFeedFollow } from './feed-follows';
 
-export async function handlerAddFeed(cmdName: string, ...args: string[]) {
+export async function handlerAddFeed(cmdName: string, user: User, args: string[]) {
   if (args.length !== 2) {
-    throw new Error(`Usage: ${cmdName} <name> <url>`);
-  }
-
-  const { currentUserName } = readConfig();
-  const user = await getUserByName(currentUserName);
-
-  if (!user) {
-    throw new Error(`User ${currentUserName} not found`);
+    throw new Error(`Usage: ${cmdName} <feed_name> <url>`);
   }
 
   const feedName = args[0];
